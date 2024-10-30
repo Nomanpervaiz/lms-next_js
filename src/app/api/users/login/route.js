@@ -40,7 +40,6 @@ export async function POST(request) {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_KEY, // Ensure JWT_KEY is set in .env
-      { expiresIn: "1h" }  // Optional: token expiration time
     );
 
     // Respond with success message, user info, and token
