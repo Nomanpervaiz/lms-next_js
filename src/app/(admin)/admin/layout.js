@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         <Tabs defaultValue="dashboard" className="w-full border ">
           <TabsList className="w-full my-4">
             <Link href={"/admin/dashboard"}>
-              <TabsTrigger value="dashboard" className="text-1xl rounded-xl ">Dashboard</TabsTrigger>
+              <TabsTrigger value="dashboard"  className="text-1xl rounded-xl ">Dashboard</TabsTrigger>
             </Link>
             <Link href={"/admin/batches"}>
               <TabsTrigger value="batches" className="text-1xl rounded-xl ">Batches</TabsTrigger>
