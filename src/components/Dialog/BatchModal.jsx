@@ -105,7 +105,7 @@ export function BatchModal() {
         <DrawerHeader className="text-left">
           <DrawerTitle className="font-bold">Add Batch</DrawerTitle>
           <DrawerDescription>
-            Make changes to your profile here. Click save when you're done.
+            
           </DrawerDescription>
         </DrawerHeader>
         <BatchForm className="px-4" />
