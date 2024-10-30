@@ -46,7 +46,6 @@ return Response.json(
         msg : "user Added Successfully",
         user: newUser,
         token,
-        
     },{status : 200}
 )
 }
