@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/dbConnect";
-import userModal from "@/lib/Modals/UserModal";
+import UserModel from "@/lib/Models/UserModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -19,7 +19,7 @@ export async function POST(request) {
     console.log("obj ==> ", obj);
 
     // Check if the user exists in the database
-    const user = await userModal.findOne({ email: obj.email });
+    const user = await UserModel.findOne({ email: obj.email });
     if (!user) {
       return new Response(
         JSON.stringify({ error: true, msg: "User Not Found" }),

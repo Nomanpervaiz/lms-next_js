@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/dbConnect";
-import userModal from "@/lib/Modals/UserModal";
+import UserModel from "@/lib/Models/UserModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -14,7 +14,7 @@ export async function POST(request) {
   const obj = await request.json();
   console.log("obj ==> ", obj);
   //   checking user same data user exist or not
-  const user = await userModal.findOne({ email: obj.email });
+  const user = await UserModel.findOne({ email: obj.email });
   //   if user exist make error user alerady exist
   if (user) {
     return Response.json(
@@ -29,7 +29,7 @@ export async function POST(request) {
 
 //   after everything ..  i make new user using same code but it make new user with the help of new keyword
 
-  let newUser = new userModal({ ...obj });
+  let newUser = new UserModel({ ...obj });
   newUser = await newUser.save();
 
   

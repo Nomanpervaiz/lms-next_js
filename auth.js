@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/dbConnect";
-import userModal from "@/lib/Modals/UserModal";
+import userModal from "@/lib/Models/UserModel";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
