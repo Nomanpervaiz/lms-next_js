@@ -32,30 +32,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Image from "next/image";
 
-const data = [
-  {
-    id: "m5gr84i9",
-    course: "Web and App Development",
-    status: "active",
-    duration: "1 Year",
-    description: "Make Student Complete Web and App developer from Scratch.",
-  },
-  {
-    id: "3u1reuv4",
-    course: "App Development",
-    status: "active",
-    duration: "4 months",
-    description: "Make Web DEVELOPER also App Developer",
-  },
-  {
-    id: "derv1ws0",
-    course: "Python Development",
-    status: "active",
-    duration: "4 months",
-    description: "Learn Python from Scratch",
-  },
-];
 
 export const columns = [
   {
@@ -81,27 +59,38 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "thumbnail",
+    header: ({ column }) => {
+      return (
+        <Button
+        
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Thumbnail
+          <ArrowUpDown className=" h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <Image className="rounded-xl" src={row.getValue("thumbnail")} width={80} height={80} alt="thumbnail"/>
     ),
   },
   {
-    accessorKey: "course",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Course
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          course
+          <ArrowUpDown className="h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("course")}</div>
+      <div >{row.getValue("title")}</div>
     ),
   },
   {
@@ -123,10 +112,18 @@ export const columns = [
   },
   {
     accessorKey: "duration",
-    header: () => <div className="text-right">Duration</div>,
+    header: () => <div className="text-left">Duration</div>,
     cell: ({ row }) => {
-      const duration = parseFloat(row.getValue("duration"));
-      return <div className="text-right font-medium">{duration}</div>;
+      const duration = (row.getValue("duration"));
+      return <div className="text-left font-medium">{duration}</div>;
+    },
+  },
+  {
+    accessorKey: "eligibility",
+    header: () => <div className="text-left">Eligibility</div>,
+    cell: ({ row }) => {
+      const eligibility = (row.getValue("eligibility").join(" "));
+      return <div className="text-left font-medium">{eligibility}</div>;
     },
   },
   {
@@ -146,7 +143,7 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(course.id)}
+              onClick={() => navigator.clipboard.writeText(course?.id)}
             >
               Copy course name
             </DropdownMenuItem>
@@ -160,14 +157,14 @@ export const columns = [
   },
 ];
 
-export default function CourseTable() {
+export default function CourseTable({courses}) {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data,
+    data : courses,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -189,10 +186,10 @@ export default function CourseTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter course..."
-          value={table.getColumn("course")?.getFilterValue() ?? ""}
+          placeholder="Filter courses..."
+          value={table.getColumn("title")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("course")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

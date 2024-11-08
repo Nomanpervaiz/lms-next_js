@@ -33,34 +33,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const data = [
-  {
-    id: "m5gr84i9",
-    batch: "Batch 1",
-    status: "Completed",
-    trainer: "Ghous ahmed",
-    noOfStudents: 20,
-    course: "Web and App development",
-},
-{
-    id: "3u1reuv4",
-    batch: "Batch 2",
-    course: "Generative Ai",
-    status: "Pending",
-    duration: "6 months",
-    noOfStudents: 25,
-    trainer: "Ameen alam",
-},
-{
-    id: "derv1ws0",
-    batch: "Batch 1",
-    course: "Modern App development",
-    status: "ongoing",
-    duration: "4 months",
-    noOfStudents: 30,
-    trainer: "Bial raza",
-  },
-];
+
 
 export const columns = [
   {
@@ -175,14 +148,14 @@ export const columns = [
   },
 ];
 
-export default function BatchTable() {
+export default function BatchTable({batches}) {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data,
+    data : batches,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

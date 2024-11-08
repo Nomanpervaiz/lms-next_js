@@ -13,25 +13,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { addCourses } from "@/actions/courses"
 
 export function CourseModal() {
   const [open, setOpen] = React.useState(false)
 
-  const handleAddCourse = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const newCourse = {
-      id: `course${Math.random().toString(36).substr(2, 9)}`, // Unique ID
-      course: formData.get('courseName'),
-      status: formData.get('status'),
-      duration: formData.get('duration'),
-      description: formData.get('description'),
-    }
-
-    // Here you can handle adding the new course to the course list or state
-    console.log("New Course Added:", newCourse)
-    setOpen(false)
-  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -45,41 +31,33 @@ export function CourseModal() {
             Enter the details of the new course.
           </DialogDescription>
         </DialogHeader>
-        <CourseForm onSubmit={handleAddCourse} />
-      </DialogContent>
+        <CourseForm className="px-4" />
+      </DialogContent>  
     </Dialog>
   )
 }
 
-function CourseForm({ onSubmit }) {
+function CourseForm({ className}) {
   return (
-    <form onSubmit={onSubmit} className={cn("grid gap-4")}>
+    <form action={addCourses} className={cn("grid gap-4",className)  }>
       
       <div className="grid gap-2">
-        <Label htmlFor="courseName">Course Name</Label>
-        <Input required type="text" id="courseName" name="courseName" className="rounded-xl" placeholder="e.g., Web Development" />
+        <Label htmlFor="title">Title</Label>
+        <Input required type="text" id="title" name="title" className="rounded-xl" placeholder="e.g., Web Development" />
       </div>
-
-
-      <div className="grid gap-2">
-        <Label htmlFor="status" >Status</Label>
-        <Select required  name="status">
-          <SelectTrigger className="rounded-xl">
-            <SelectValue placeholder="Select Status" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="inactive">Inactive</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
 
       <div className="grid gap-2">
         <Label htmlFor="duration">Duration</Label>
         <Input required type="text" id="duration" name="duration" className="rounded-xl" placeholder="e.g., 6 months, 1 year" />
       </div>
-
+      <div className="grid gap-2">
+        <Label htmlFor="thumbnail">Thumbnail</Label>
+        <Input required type="url" id="thumbnail" name="thumbnail" className="rounded-xl" placeholder="Upload thumbnail" />
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="eligibility">Eligibility</Label>
+        <Input required type="text" id="eligibility" name="eligibility" className="rounded-xl" placeholder="eligibility" />
+      </div>
       {/* Description */}
       <div className="grid gap-2">
         <Label htmlFor="description">Description</Label>
