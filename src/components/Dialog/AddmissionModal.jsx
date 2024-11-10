@@ -1,141 +1,160 @@
-// 'use client'
-// import * as React from "react"
-// import { cn } from "@/lib/utils"
-// import { Button } from "@/components/ui/button"
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog"
-// import {
-//   Drawer,
-//   DrawerClose,
-//   DrawerContent,
-//   DrawerDescription,
-//   DrawerFooter,
-//   DrawerHeader,
-//   DrawerTitle,
-//   DrawerTrigger,
-// } from "@/components/ui/drawer"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-// import { addBatches } from "@/actions/batches"
+"use client";
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { addBatches } from "@/actions/batches";
+import { addAddmission } from "@/actions/addmissions";
 
+export function AddmissionModal({ courses, batches }) {
+  const [open, setOpen] = React.useState(false);
+  const isDesktop = true;
 
-// export function AddmissionModal({courses,batches}) {
-//   const [open, setOpen] = React.useState(false)
-//   const isDesktop = true
-  
-//   if (isDesktop) {
-//     return (
-//       <Dialog open={open} onOpenChange={setOpen}>
-//         <DialogTrigger asChild>
-//           <Button variant="outline" >Add Batch</Button>
-//         </DialogTrigger>
-//         <DialogContent className="sm:max-w-[425px] bg-white">
-//           <DialogHeader>
-//             <DialogTitle className="font-bold">Add Batch</DialogTitle>
-//             <DialogDescription>
-              
-//             </DialogDescription>
-//           </DialogHeader>
-//           <BatchForm courses={courses} batches={batches} className={"mx-1"} />
-//         </DialogContent>
-//       </Dialog>
-//     )
-//   }
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="outline">Add Batch</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px] bg-white">
+          <DialogHeader>
+            <DialogTitle className="font-bold">Add Batch</DialogTitle>
+            <DialogDescription></DialogDescription>
+          </DialogHeader>
+          <BatchForm courses={courses} batches={batches} className={"mx-1"} />
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
-//   return (
-//     <Drawer open={open} onOpenChange={setOpen}>
-//       <DrawerTrigger asChild>
-//         <Button variant="outline" >Add Batch</Button>
-//       </DrawerTrigger>
-//       <DrawerContent>
-//         <DrawerHeader className="text-left">
-//           <DrawerTitle className="font-bold">Add Batch</DrawerTitle>
-//           <DrawerDescription>
-            
-//           </DrawerDescription>
-//         </DrawerHeader>
-//         <BatchForm className="px-4" />
-//         <DrawerFooter className="pt-2">
-//           <DrawerClose asChild>
-//             <Button variant="outline">Cancel</Button>
-//           </DrawerClose>
-//         </DrawerFooter>
-//       </DrawerContent>
-//     </Drawer>
-//   )
-// }
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <Button variant="outline">Add Batch</Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader className="text-left">
+          <DrawerTitle className="font-bold">Add Batch</DrawerTitle>
+          <DrawerDescription></DrawerDescription>
+        </DrawerHeader>
+        <BatchForm className="px-4" />
+        <DrawerFooter className="pt-2">
+          <DrawerClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+}
 
+function BatchForm({ className, courses, batches }) {
+  const [selecteCourse, setSelecteCourse] = React.useState("");
 
-// function BatchForm({ className ,courses,batches}) {
+  return (
+    <form
+      action={addAddmission}
+      className={cn("grid items-start gap-4", className)}
+    >
+      {/* Startdate */}
+      <div className="grid gap-2">
+        <Label htmlFor="startDate">Start Date</Label>
+        <Input
+          required
+          type="date"
+          id="startDate"
+          placeholder="Enter Addmissions open Date"
+          name="startDate"
+          className="rounded-xl"
+        />
+      </div>
+      {/* endDate */}
+      <div className="grid gap-2">
+        <Label htmlFor="endDate">End Date</Label>
+        <Input
+          required
+          type="date"
+          id="endDate"
+          placeholder="Enter Addmissions close Date"
+          name="endDate"
+          className="rounded-xl"
+        />
+      </div>
 
-// console.log("courses in bach modal ==> " , courses);
+{selecteCourse &&
+      <div className="grid gap-2">
+        <Label htmlFor="status">Batch</Label>
+        <Select required name="batch">
+          <SelectTrigger className="rounded-xl">
+            <SelectValue placeholder="Batch Status" />
+          </SelectTrigger>
+          <SelectContent className="bg-white">
+            {batches?.map((batche) => {
+              console.log("course ka map ==> ", batche);
+              return (
+                <SelectItem key={batche?._id} value={batche?._id}>
+                  {batche?.title}
+                </SelectItem>
+              );
+            })}
+          </SelectContent>
+        </Select>
+      </div> 
+            }
 
-  
-//   return (
-//     <form  action={addBatches} className={cn("grid items-start gap-4", className)}>
-//     {/* Batch Name */}
-//     <div className="grid gap-2">
-//       <Label htmlFor="title">Batch Name</Label>
-//       <Input required type="text" id="title" placeholder="Batch name" name="title" className="rounded-xl" />
-//     </div>  
+      {/* Course */}
+      <div className="grid gap-2">
+        <Label htmlFor="course">Course</Label>
+        <Select
+          required
+          name="course"
+          onValueChange={(value) => setSelecteCourse(value)}
+        >
+          <SelectTrigger className="rounded-xl">
+            <SelectValue placeholder="Select Course" />
+          </SelectTrigger>
+          <SelectContent id="course" className="bg-white">
+            {courses?.map((course) => {
+              console.log("course ka map ==> ", course);
+              return (
+                <SelectItem key={course?._id} value={course?._id}>
+                  {course?.title}
+                </SelectItem>
+              );
+            })}
+          </SelectContent>
+        </Select>
+      </div>
 
-//     <div className="grid gap-2">
-//         <Label htmlFor="description">Description</Label>
-//         <Input
-//         className="rounded-xl"
-//         placeholder="Enter Description"
-//           required
-//           type="text"
-//           id="description"
-//           name="description"
-//         />
-//       </div>
-
-//     {/* Status */}
-//     <div className="grid gap-2">
-//       <Label htmlFor="status">Status</Label>
-//       <Select required  name="status">
-//         <SelectTrigger  className="rounded-xl">
-//           <SelectValue  placeholder="Batch Status" />
-//         </SelectTrigger >
-//         <SelectContent  className="bg-white">
-//           <SelectItem  value="pending" >Pending</SelectItem>
-//           <SelectItem value="admission-open" >Admission-open</SelectItem>
-//           <SelectItem value="admission-close">Admission-close</SelectItem>
-//           <SelectItem value="ongoing">Ongoing</SelectItem>
-//           <SelectItem value="completed">Completed</SelectItem>
-//         </SelectContent>
-//       </Select>
-//     </div>
-
-//     {/* Course */}
-//     <div className="grid gap-2">
-//       <Label htmlFor="course">Course</Label>
-//       <Select required name="course" >
-//         <SelectTrigger className="rounded-xl">
-//           <SelectValue placeholder="Select Course" />
-//         </SelectTrigger>
-//         <SelectContent id="course" className="bg-white">
-//           {courses?.map((course) =>{
-//               console.log("course ka map ==> " , course);
-//             return(
-//               <SelectItem key={course?._id} value={course?._id}>
-//               {course?.title}
-//             </SelectItem>
-//           )})}
-         
-//         </SelectContent>
-//       </Select>
-//     </div>
-
-//     <Button type="submit" className="bg-black text-white rounded-xl">Add Batch</Button>
-//   </form>
-//   )
-// }
+      <Button type="submit" className="bg-black text-white rounded-xl">
+        Add Batch
+      </Button>
+    </form>
+  );
+}

@@ -3,19 +3,22 @@ import { AddmissionModel } from "@/lib/Models/AddmissionModel";
 import { BatchModel } from "@/lib/Models/BatchModel";
 import { CourseModel } from "@/lib/Models/CourseModel";
 
+
+// This function Post data in database using schema
 export async function POST(request) {
-  await connectDB();
-  const obj = await request.json();
-  let newAddmission = new AddmissionModel({ ...obj });
+    await connectDB();
+    const obj = await request.json();
+    let newAddmission = new AddmissionModel({ ...obj });
   newAddmission = await newAddmission.save();
 
   return Response.json({
     error: false,
     msg: "Addmission Added Successully",
     addmission: newAddmission,
-  });
+});
 }
 
+// This function get data from database 
 export async function GET(request) {
   await connectDB();
   const reqUrl = request.url;

@@ -59,23 +59,6 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "course",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          course-Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div >{row.getValue("course")?.title}</div>
-    ),
-  },
-  {
     accessorKey: "batch",
     header: ({ column }) => {
       return (
@@ -90,6 +73,23 @@ export const columns = [
     },
     cell: ({ row }) => (
       <div >{row.getValue("batch")?.title}</div>
+    ),
+  },
+  {
+    accessorKey: "course",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          course-Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div >{row.getValue("course")?.title}</div>
     ),
   },
   
@@ -122,7 +122,8 @@ export const columns = [
     enableHiding: false,
     cell: ({ row }) => {
       const course = row.original;
-
+        console.log("course from admission table ==>" , course);
+        
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -150,7 +151,6 @@ export const columns = [
 
 export default function AddmissionTable({data}) {
     console.log("Data addmission table ==> " , data);
-    
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -180,9 +180,9 @@ export default function AddmissionTable({data}) {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter by Batch name..."
-          value={table.getColumn("title")?.getFilterValue() ?? ""}
+          value={table.getColumn("status")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("status")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -253,7 +253,7 @@ export default function AddmissionTable({data}) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns?.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -265,8 +265,8 @@ export default function AddmissionTable({data}) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows?.length} of{" "}
+          {table.getFilteredRowModel().rows?.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button

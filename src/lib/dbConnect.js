@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 let connection = null;
+
+// This function returns DataBase connection 
 export async function connectDB() {
   if (connection && connection.readyState === 1) {
     return connection;

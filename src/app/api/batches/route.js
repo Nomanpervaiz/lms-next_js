@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/dbConnect";
 import BatchModel from "@/lib/Models/BatchModel";
 import CourseModel from "@/lib/Models/CourseModel";
 
+// This function Post data in database using schema
 
 export async function POST(request) {
     await connectDB()

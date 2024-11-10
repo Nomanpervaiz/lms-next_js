@@ -8,7 +8,7 @@ export async function GET(request) {
     status: 200,
   });
 }
-
+// This function Post data in database using schema
 export async function POST(request) {
   try {
     // Connecting to the database

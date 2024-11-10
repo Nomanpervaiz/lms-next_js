@@ -3,10 +3,8 @@ import { UserModel } from "@/lib/Models/UserModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export async function GET(request) {
-  return Response.json("Get response console Successfully");
-}
 
+// This function Post data in database using schema
 export async function POST(request) {
   // calling connectDb
   await connectDB();
