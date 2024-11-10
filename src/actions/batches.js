@@ -9,16 +9,19 @@ export async function getBatches() {
 }
 
 export async function addBatches (formData) {
+    
     const obj = {
         title : formData.get("title"),
         description : formData.get("description"),
         course : formData.get("course"),
-        status : formData.get("status")
+        status : formData.get("status"),
     }
+    console.log("obj", obj);
+    
     
     const batch = await fetch(`${process.env.BASE_URL}api/batches`,{
         method : "POST",
-        body : JSON.stringify(batch)
+        body : JSON.stringify(obj)
     })
 
     if (batch.ok) {

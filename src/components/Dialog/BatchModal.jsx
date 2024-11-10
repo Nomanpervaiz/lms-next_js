@@ -23,60 +23,18 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { addBatches } from "@/actions/batches"
 
 
-const trainerData = [
-  {
-    id: "trainer1",
-    name: "Ghous Ahmed",
-    expertise: "Web and App Development",
-    experience: "5 years",
-    noOfCourses: 3,
-  },
-  {
-    id: "trainer2",
-    name: "Ameen Alam",
-    expertise: "Generative AI",
-    experience: "3 years",
-    noOfCourses: 2,
-  },
-  {
-    id: "trainer3",
-    name: "Bial Raza",
-    expertise: "App Development",
-    experience: "4 years",
-    noOfCourses: 4,
-  },
-];
 
-const courseData = [
-  {
-    id: "m5gr84i9",
-    course: "Web and App Development",
-    status: "active",
-    duration: "1 Year",
-    description: "Make Student Complete Web and App developer from Scratch.",
-  },
-  {
-    id: "3u1reuv4",
-    course: "App Development",
-    status: "active",
-    duration: "4 months",
-    description: "Make Web DEVELOPER also App Developer",
-  },
-  {
-    id: "derv1ws0",
-    course: "Python Development",
-    status: "active",
-    duration: "4 months",
-    description: "Learn Python from Scratch",
-  },
-];
 
-export function BatchModal() {
+
+export function BatchModal({courses}) {
+  
+
   const [open, setOpen] = React.useState(false)
   const isDesktop = true
-
+  
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -90,7 +48,7 @@ export function BatchModal() {
               
             </DialogDescription>
           </DialogHeader>
-          <BatchForm />
+          <BatchForm courses={courses} className={"mx-1"} />
         </DialogContent>
       </Dialog>
     )
@@ -119,66 +77,65 @@ export function BatchModal() {
   )
 }
 
-function BatchForm({ className }) {
+
+function BatchForm({ className ,courses}) {
+
+console.log("courses in bach modal ==> " , courses);
+
+  
   return (
-    <form className={cn("grid items-start gap-4", className)}>
+    <form  action={addBatches} className={cn("grid items-start gap-4", className)}>
     {/* Batch Name */}
     <div className="grid gap-2">
-      <Label htmlFor="batchName">Batch Name</Label>
-      <Input required type="text" id="batchName" defaultValue="" className="rounded-xl" />
-    </div>
+      <Label htmlFor="title">Batch Name</Label>
+      <Input required type="text" id="title" placeholder="Batch name" name="title" className="rounded-xl" />
+    </div>  
+
+    <div className="grid gap-2">
+        <Label htmlFor="description">Description</Label>
+        <Input
+        className="rounded-xl"
+        placeholder="Enter Description"
+          required
+          type="text"
+          id="description"
+          name="description"
+        />
+      </div>
 
     {/* Status */}
     <div className="grid gap-2">
       <Label htmlFor="status">Status</Label>
-      <Select required>
-        <SelectTrigger className="rounded-xl">
-          <SelectValue placeholder="Pending, Completed, Ongoing, Merged" />
-        </SelectTrigger>
-        <SelectContent className="bg-white">
-          <SelectItem value="pending">Pending</SelectItem>
-          <SelectItem value="completed">Completed</SelectItem>
+      <Select required  name="status">
+        <SelectTrigger  className="rounded-xl">
+          <SelectValue  placeholder="Batch Status" />
+        </SelectTrigger >
+        <SelectContent  className="bg-white">
+          <SelectItem  value="pending" >Pending</SelectItem>
+          <SelectItem value="admission-open" >Admission-open</SelectItem>
+          <SelectItem value="admission-close">Admission-close</SelectItem>
           <SelectItem value="ongoing">Ongoing</SelectItem>
-          <SelectItem value="merged">Merged</SelectItem>
+          <SelectItem value="completed">Completed</SelectItem>
         </SelectContent>
       </Select>
-    </div>
-
-    {/* Trainer */}
-    <div className="grid gap-2">
-      <Label htmlFor="trainer">Trainer</Label>
-      <Select required>
-        <SelectTrigger className="rounded-xl">
-          <SelectValue placeholder="Select Trainer" />
-        </SelectTrigger>
-        <SelectContent className="bg-white">
-          {trainerData.map((trainer) => (
-            <SelectItem key={trainer.id} value={trainer.name}>
-              {trainer.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
-
-    <div className="grid gap-2">
-      <Label htmlFor="noOfStudents">No of Students</Label>
-      <Input required type="number" id="noOfStudents" defaultValue="" className="rounded-xl" />
     </div>
 
     {/* Course */}
     <div className="grid gap-2">
       <Label htmlFor="course">Course</Label>
-      <Select required>
+      <Select required name="course" >
         <SelectTrigger className="rounded-xl">
           <SelectValue placeholder="Select Course" />
         </SelectTrigger>
-        <SelectContent>
-          {courseData.map((course) => (
-            <SelectItem key={course.id} value={course.course}>
-              {course.course}
+        <SelectContent id="course" className="bg-white">
+          {courses?.map((course) =>{
+              console.log("course ka map ==> " , course);
+            return(
+              <SelectItem key={course?._id} value={course?._id}>
+              {course?.title}
             </SelectItem>
-          ))}
+          )})}
+         
         </SelectContent>
       </Select>
     </div>

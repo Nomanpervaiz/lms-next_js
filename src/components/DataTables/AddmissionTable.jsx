@@ -59,7 +59,24 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "course",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          course-Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div >{row.getValue("course")?.title}</div>
+    ),
+  },
+  {
+    accessorKey: "batch",
     header: ({ column }) => {
       return (
         <Button
@@ -72,35 +89,34 @@ export const columns = [
       );
     },
     cell: ({ row }) => (
-      <div >{row.getValue("title")}</div>
+      <div >{row.getValue("batch")?.title}</div>
     ),
   },
   
   {
+    accessorKey: "startDate",
+    header: "startDate",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("startDate")}</div>
+    ),
+  },
+  {
+    accessorKey: "endDate",
+    header: "endDate",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("endDate")}</div>
+    ),
+  },
+ 
+  {
     accessorKey: "status",
-    header: "Status",
+    header: "status",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("status")}</div>
     ),
   },
  
-  {
-    accessorKey: "course",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Course
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div >{row.getValue("course")?.title}</div>
-    ),
-  },
+ 
   {
     id: "actions",
     enableHiding: false,
@@ -132,14 +148,16 @@ export const columns = [
   },
 ];
 
-export default function BatchTable({data}) {
+export default function AddmissionTable({data}) {
+    console.log("Data addmission table ==> " , data);
+    
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data ,
+    data : data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

@@ -1,13 +1,13 @@
 import { connectDB } from "@/lib/dbConnect";
-import userModal from "@/lib/Models/UserModel";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
+import { UserModel } from "@/lib/Models/UserModel";
 
 const handleLogin = async (profile) => {
-  console.log(profile);
+  
   await connectDB();
-  const user = await userModal.findOne({ email: profile.email });
+  const user = await UserModel.findOne({ email: profile?.email });
   if (user) {
     return user;
   } else {
@@ -18,7 +18,7 @@ const handleLogin = async (profile) => {
       provider: "Google",
       profileImg: profile?.picture,
     };
-    let newUser = await new userModal(obj);
+    let newUser = await new UserModel(obj);
     newUser = await newUser.save();
     return newUser;
   }
@@ -34,10 +34,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         let user = null;
-
         console.log("credentials", credentials);
-        let res = await fetch(
-          "https://lms-next-js-livid.vercel.app/api/users/login",
+        let res = await fetch( `${Process.env.BASE_URL}api/users/login`,
           {
             method: "POST",
             body: JSON.stringify({

@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/dbConnect";
-import UserModel from "@/lib/Models/UserModel";
+import { UserModel } from "@/lib/Models/UserModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -14,7 +14,7 @@ export async function POST(request) {
   const obj = await request.json();
   console.log("obj ==> ", obj);
   //   checking user same data user exist or not
-  const user = await UserModel.findOne({ email: obj.email });
+  const user = await UserModel.findOne({ email: obj?.email });
   //   if user exist make error user alerady exist
   if (user) {
     return Response.json(
@@ -34,18 +34,16 @@ export async function POST(request) {
 
   
   const token = jwt.sign(
-       { id: newUser._id, role: newUser.role },
-       process.env.JWT_KEY
-
+       { id: newUser?._id, role: newUser?.role },
+       process?.env?.JWT_KEY
   )
-
 
 return Response.json(
     {
         error : false,
         msg : "user Added Successfully",
         user: newUser,
-        token,
+        token : token ,
     },{status : 200}
 )
 }

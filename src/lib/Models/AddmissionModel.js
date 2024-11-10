@@ -16,8 +16,5 @@ const addmissionSchema = new Schema({
 
 }, { timestamps: true });
 
-if (mongoose.models.Admission) {
-    mongoose.models.Admission.schema = addmissionSchema;
-  }
 export const AddmissionModel =
   mongoose.models.Addmission || mongoose.model("Addmission", addmissionSchema);

@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
-
-
 
 export const metadata = {
   title: "LMS | ",
@@ -11,33 +9,34 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
-  const session = await auth()
-  if (session?.user?.role != "admin"){
-    redirect("/")
+  const session = await auth();
+  if (session?.user?.role !== "admin") {
+    redirect("/");
   }
 
   return (
     <html lang="en">
       <body>
-
-        <Tabs defaultValue="dashboard" className="w-full border ">
+        <Tabs defaultValue="dashboard" className="w-full border">
           <TabsList className="w-full my-4">
-            <Link href={"/admin/dashboard"}>
-              <TabsTrigger value="dashboard" className="text-1xl rounded-xl ">Dashboard</TabsTrigger>
-            </Link>
-            <Link href={"/admin/batches"}>
-              <TabsTrigger value="batches" className="text-1xl rounded-xl ">Batches</TabsTrigger>
-            </Link>
-            <Link href={"/admin/courses"}>
-              <TabsTrigger value="courses" className="text-1xl rounded-xl ">Courses</TabsTrigger>
-            </Link>
-            <Link href={"/admin/students"}>
-              <TabsTrigger value="students" className="text-1xl rounded-xl ">Students</TabsTrigger>
-            </Link>
-            <Link href={"/admin/trainers"}>
-              <TabsTrigger value="trainers" className="text-1xl rounded-xl ">Trainers</TabsTrigger>
-            </Link>
+            <TabsTrigger value="dashboard" className="text-1xl rounded-xl">
+              <Link href="/admin/dashboard">Dashboard</Link>
+            </TabsTrigger>
+            <TabsTrigger value="batches" className="text-1xl rounded-xl">
+              <Link href="/admin/batches">Batches</Link>
+            </TabsTrigger>
+            <TabsTrigger value="courses" className="text-1xl rounded-xl">
+              <Link href="/admin/courses">Courses</Link>
+            </TabsTrigger>
+            <TabsTrigger value="students" className="text-1xl rounded-xl">
+              <Link href="/admin/students">Students</Link>
+            </TabsTrigger>
+            <TabsTrigger value="trainers" className="text-1xl rounded-xl">
+              <Link href="/admin/trainers">Trainers</Link>
+            </TabsTrigger>
+            <TabsTrigger value="addmissions" className="text-1xl rounded-xl">
+              <Link href="/admin/addmissions">Admissions</Link>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard">{children}</TabsContent>
@@ -45,9 +44,8 @@ export default async function RootLayout({ children }) {
           <TabsContent value="courses">{children}</TabsContent>
           <TabsContent value="students">{children}</TabsContent>
           <TabsContent value="trainers">{children}</TabsContent>
-
+          <TabsContent value="addmissions">{children}</TabsContent>
         </Tabs>
-
       </body>
     </html>
   );

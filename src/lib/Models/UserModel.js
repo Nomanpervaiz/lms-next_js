@@ -11,6 +11,6 @@ const userSchema = new Schema({
     address : String ,
 },{timestamps : true});
 
- const UserModel = mongoose.models.Users || mongoose.model("Users" , userSchema)
- export default UserModel
+export const UserModel = mongoose?.models?.Users || mongoose?.model("Users" , userSchema)
+  
 
