@@ -64,7 +64,7 @@ function CourseForm({ className}) {
         <Input required as="textarea" id="description" name="description" className="rounded-xl" placeholder="Describe the course" />
       </div>
 
-      <Button type="submit" className="bg-black rounded-xl text-white">Add Course</Button>
+      <Button type="submit" className="bg-black hover:bg-black hover:text-white rounded-xl text-white">Add Course</Button>
     </form>
   )
 }

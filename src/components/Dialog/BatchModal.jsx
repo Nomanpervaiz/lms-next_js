@@ -140,7 +140,7 @@ console.log("courses in bach modal ==> " , courses);
       </Select>
     </div>
 
-    <Button type="submit" className="bg-black text-white rounded-xl">Add Batch</Button>
+    <Button type="submit" className="bg-black hover:bg-black hover:text-white text-white rounded-xl">Add Batch</Button>
   </form>
   )
 }

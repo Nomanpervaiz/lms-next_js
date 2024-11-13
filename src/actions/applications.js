@@ -8,10 +8,11 @@ export async function getAddmission(status = '') {
     admissions = await admissions?.json();
     return admissions;
   }
+  
 
 //   This Function Add Data in Admission api from frontend
   export async function addAddmission(formData) {
-
+    
     const obj = {
          startDate : formData.get("startDate") ,
          endDate : formData.get("endDate") ,
@@ -20,37 +21,15 @@ export async function getAddmission(status = '') {
     }
 
     console.log("obj formData addmission ==> ",obj);
-    let addmission = await fetch(`${process.env.BASE_URL}api/addmissions`,
+    let batch = await fetch(`${process.env.BASE_URL}api/addmission`,
         {
             method : "POST",
             body : JSON.stringify(obj)
         }
     )    
 
-    if (addmission.ok) {
-        revalidatePath("/admin/addmissions")        
+    if (batch.ok) {
+        revalidatePath("/admin/addmission")        
     }
     
   }
-
-  export async function updateAddmission(id, status) {
-    console.log("id ==> ", id);
-    console.log("status ==> ", status); 
-    const updateStatusOfAddmission = await fetch(`${process.env.BASE_URL}api/addmissions`, {
-      method: "PUT",
-      body: JSON.stringify(
-        {
-          id:id,
-          status:status
-        }
-      ),
-    });
-  
-    const responseJson = await updateStatusOfAddmission.json();
-    console.log("Update response:", responseJson); // Check if the update was successful
-  
-    if (updateStatusOfAddmission.ok) {
-      revalidatePath("/admin/addmissions");
-    }
-  }
-  

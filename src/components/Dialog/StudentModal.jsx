@@ -95,7 +95,7 @@ function StudentForm({ onSubmit }) {
         </Select>
       </div>
 
-      <Button type="submit" className="bg-black rounded-xl text-white">Add Student</Button>
+      <Button type="submit" className="bg-black hover:bg-black hover:text-white rounded-xl text-white">Add Student</Button>
     </form>
   )
 }

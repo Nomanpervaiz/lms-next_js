@@ -77,7 +77,7 @@ function TrainerForm({ onSubmit }) {
         <Input required type="number" id="noOfCourses" className="rounded-xl" name="noOfCourses" placeholder="e.g., 5" />
       </div>
 
-      <Button type="submit" className="bg-black rounded-xl text-white">Add Trainer</Button>
+      <Button type="submit" className="bg-black hover:bg-black hover:text-white rounded-xl text-white">Add Trainer</Button>
     </form>
   )
 }

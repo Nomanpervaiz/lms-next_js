@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { UserModel } from "./UserModel";
 
 const {Schema} = mongoose
 
@@ -6,7 +7,7 @@ const applicationSchema  = new Schema(
     {
         course: { type: mongoose.Types.ObjectId, ref: "Course" },
         batch: { type: mongoose.Types.ObjectId, ref: "Batch" },
-        admission: { type: mongoose.Types.ObjectId, ref: "Admission" },
+        addmission: { type: mongoose.Types.ObjectId, ref: "Addmission" },
         user: { type: mongoose.Types.ObjectId, ref: "Users" },
         info : {
             CNIC : String,
@@ -21,5 +22,5 @@ const applicationSchema  = new Schema(
    
 },{timestamps : true})
 
-const ApplicationModel  = mongoose.models.Model || mongoose.model("Model" , applicationSchema)
+const ApplicationModel  = mongoose.models.Application || mongoose.model("Application" , applicationSchema)
 export default ApplicationModel;

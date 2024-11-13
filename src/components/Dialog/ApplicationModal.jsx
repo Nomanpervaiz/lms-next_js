@@ -29,10 +29,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { addBatches } from "@/actions/batches";
-import { addAddmission } from "@/actions/addmissions";
 
-export function AddmissionModal({ courses, batches }) {
+
+export function ApplicationModal({ addmission, session }) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = true;
 
@@ -40,11 +39,11 @@ export function AddmissionModal({ courses, batches }) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Addmissions</Button>
+          <Button variant="outline">Apply</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] bg-white">
           <DialogHeader>
-            <DialogTitle className="font-bold">Add Addmissions</DialogTitle>
+            <DialogTitle className="font-bold">Apply</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <BatchForm courses={courses} batches={batches} className={"mx-1"} />
@@ -76,10 +75,6 @@ export function AddmissionModal({ courses, batches }) {
 
 function BatchForm({ className, courses, batches }) {
   const [selecteCourse, setSelecteCourse] = React.useState("");
-
-  console.log("selecteCourse ==> ", selecteCourse);
-  console.log("batches in addmisisons ==> ", batches);
-  
 
   return (
     <form
@@ -144,10 +139,11 @@ function BatchForm({ className, courses, batches }) {
             <SelectValue placeholder="Batch Status" />
           </SelectTrigger>
           <SelectContent className="bg-white">
-            {batches.filter(val=> val?.course?._id == selecteCourse).map((batch) => {
+            {batches?.map((batche) => {
+              console.log("course ka map ==> ", batche);
               return (
-                <SelectItem key={batch?._id} value={batch?._id}>
-                  {batch?.title}
+                <SelectItem key={batche?._id} value={batche?._id}>
+                  {batche?.title}
                 </SelectItem>
               );
             })}

@@ -32,8 +32,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { updateAddmission } from "@/actions/addmissions";
 
 export const columns = [
   {
@@ -71,9 +71,7 @@ export const columns = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div >{row.getValue("batch")?.title}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("batch")?.title}</div>,
   },
   {
     accessorKey: "course",
@@ -88,11 +86,9 @@ export const columns = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div >{row.getValue("course")?.title}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("course")?.title}</div>,
   },
-  
+
   {
     accessorKey: "startDate",
     header: "startDate",
@@ -107,7 +103,7 @@ export const columns = [
       <div className="capitalize">{row.getValue("endDate")}</div>
     ),
   },
- 
+
   {
     accessorKey: "status",
     header: "status",
@@ -115,49 +111,44 @@ export const columns = [
       <div className="capitalize">{row.getValue("status")}</div>
     ),
   },
- 
- 
   {
     id: "actions",
-    enableHiding: false,
+    accessorKey: "status",
+    header: "Update status",
     cell: ({ row }) => {
-      const course = row.original;
-        console.log("course from admission table ==>" , course);
-        
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(course._id)}
-            >
-              Copy course name
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>See Detail</DropdownMenuItem>
-            <DropdownMenuItem>Change Status</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      const addmissionStatus = row.original
+      return(
+        <Select
+        required
+        defaultValue={row.getValue("status")}
+        onValueChange={async(val) => {
+                console.log("row val==>" ,val);
+          await updateAddmission(addmissionStatus?._id,val)
+        }}
+      >
+        <SelectTrigger className="rounded-xl w-20">
+          <SelectValue placeholder="select" />
+        </SelectTrigger>
+        <SelectContent className="bg-white">
+          <SelectItem  value="open">Open</SelectItem>
+          <SelectItem  value="close">Close</SelectItem>
+          <SelectItem  value="pending">Pending</SelectItem>
+        </SelectContent>
+      </Select>
+      )
     },
   },
 ];
 
-export default function AddmissionTable({data}) {
-    console.log("Data addmission table ==> " , data);
+export default function AddmissionTable({ data }) {
+  console.log("Data addmission table ==> ", data);
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data : data,
+    data: data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
