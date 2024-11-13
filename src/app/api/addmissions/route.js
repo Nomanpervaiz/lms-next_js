@@ -31,7 +31,7 @@ export async function GET(request) {
   }
 
   const addmission = await AddmissionModel.find(query)
-    .populate("course", "title")
+    .populate("course", "title description")
     .populate("batch", "title");
   return Response.json({
     error: false,

@@ -47,7 +47,7 @@ export async function getAddmission(status = '') {
     });
   
     const responseJson = await updateStatusOfAddmission.json();
-    console.log("Update response:", responseJson); // Check if the update was successful
+    console.log("Update response:", responseJson); 
   
     if (updateStatusOfAddmission.ok) {
       revalidatePath("/admin/addmissions");
