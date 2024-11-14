@@ -30,7 +30,7 @@ export async function GET(request) {
     query.batch = searchParams.get("batch");
   }
   if (searchParams.get("status")) {
-    query.batch = searchParams.get("status");
+    query.status = searchParams.get("status");
   }
 
   const addmission = await AddmissionModel.find(query)
