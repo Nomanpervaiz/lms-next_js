@@ -76,7 +76,7 @@ export function ApplicationModal({ addmission, session }) {
           <DrawerTitle className="font-bold">Add Addmissions</DrawerTitle>
           <DrawerDescription></DrawerDescription>
         </DrawerHeader>
-        <BatchForm className="px-4" />
+        <ApplicationForm className="px-4" />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
