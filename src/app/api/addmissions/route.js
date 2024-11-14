@@ -29,6 +29,9 @@ export async function GET(request) {
   if (searchParams.get("batch")) {
     query.batch = searchParams.get("batch");
   }
+  if (searchParams.get("status")) {
+    query.batch = searchParams.get("status");
+  }
 
   const addmission = await AddmissionModel.find(query)
     .populate("course", "title description")

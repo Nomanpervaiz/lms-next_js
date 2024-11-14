@@ -35,7 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         let user = null;
         console.log("credentials", credentials);
-        let res = await fetch( `${Process.env.BASE_URL}api/users/login`,
+        let res = await fetch( `${process.env.BASE_URL}api/users/login`,
           {
             method: "POST",
             body: JSON.stringify({

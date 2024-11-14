@@ -1,9 +1,10 @@
-import Link from "next/link";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { auth } from "../../../../auth";
+import { auth } from "../../../auth";
 import { redirect } from "next/navigation";
 import { Sidebar, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar"
+import "../globals.css";
 
 
 export const metadata = {
@@ -13,9 +14,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const session = await auth();
-  if (session?.user?.role !== "admin") {
-    redirect("/");
-  }
+  if (session?.user?.role !== "admin") redirect("/")
 
   return (
     <html lang="en">

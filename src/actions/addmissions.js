@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 // This funtion returns admission api data
-export async function getAddmission(status = '') {
+export async function getAddmission(status='') {
     let admissions =  await fetch(`${process.env.BASE_URL}api/addmissions?status=${status}`,{cache: "no-cache",});
     admissions = await admissions?.json();
     return admissions;

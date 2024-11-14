@@ -1,14 +1,12 @@
 
-import { redirect } from "next/navigation"
-import { signIn, auth } from "../../../auth"
+
+import { signIn, auth } from "../../../../auth"
 
 export default async function SignIn() {
 
-    let session = await auth()
-    if (session) redirect("/")
-
+ 
     return (
-        <section className="border h-dvh flex flex-col justify-center items-center">
+        <section className=" h-dvh flex flex-col justify-center items-center">
             <div className="p-10 bg-gray-200 shadow-md w-full max-w-md rounded-xl flex flex-col justify-center items-center">
                 <h1 className="font-bold text-4xl pb-8">
                     Login
