@@ -12,10 +12,10 @@ import Link from "next/link";
 function CourseSection({addmission,session}) {
     
   return (
-    <section className="h-dvh w-full py-10 bg-black">
+    <section className="h-dvh w-full py-10 bg-white">
     <div className="container mx-auto">
-        <div className="py-10">
-      <h1 className="text-5xl  font-bold text-white">Admission Open</h1>
+        <div className="pb-20 text-center">
+      <h1 className="text-5xl  font-bold text-gray-800">Apply In Out Latest Courses</h1>
 
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
@@ -25,10 +25,10 @@ function CourseSection({addmission,session}) {
       console.log(admission._id);
       
         return (
-            <Card className="bg-white" key={admission._id}>
+            <Card className="border-none text-white bg-black/[0.89] shadow-lg" key={admission._id}>
               <CardHeader>
-                <CardTitle>{admission.course.title}</CardTitle>
-                <CardDescription>{admission.batch.title}</CardDescription>
+                <CardTitle className="text-xl">{admission.course.title}</CardTitle>
+                <CardDescription className="text-gray-300">{admission.batch.title}</CardDescription>
               </CardHeader>
               <CardContent>
                 <p>{admission.course.description}</p>
@@ -40,7 +40,7 @@ function CourseSection({addmission,session}) {
                     addmission={admission}
                   />
                 ) : (
-                  <Link href={"/signin"}>Sign in to Apply</Link>
+                  <Link className="bg-white text-black rounded-xl py-1 px-2" href={"/signin"}>Sign in to Apply</Link>
                 )}
               </CardFooter>
             </Card>

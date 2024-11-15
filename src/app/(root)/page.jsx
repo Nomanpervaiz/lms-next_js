@@ -10,7 +10,6 @@ export default async function Home() {
   return (
     <>
       <Hero />
-    <div className='container mx-auto border border-white '></div>
       <CourseSection  addmission={addmission} session={session} />
     </>
   );

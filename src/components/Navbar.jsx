@@ -15,7 +15,7 @@ async function Navbar() {
     
 
   return (
-    <nav className="bg-gray-200 py-6 ">
+    <nav className="bg-white  py-6 shadow-md">
       <div className="container flex  justify-between mx-auto items-center">
         <h1 className="bg-black font-bold text-white rounded-xl px-4 py-2 ">
           LMS
@@ -28,7 +28,7 @@ async function Navbar() {
                   <AvatarImage
                     src={session?.user?.image || "https://github.com/shadcn.png" }
                   />
-                  <AvatarFallback>
+                  <AvatarFallback className="bg-black text-white">
                     {session?.user?.name?.slice(0, 1) ||
                       session?.user?.email?.slice(0, 1)}
                   </AvatarFallback>
@@ -38,11 +38,11 @@ async function Navbar() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {session?.user?.role === "admin" ? (
-                  <DropdownMenuItem className="rounded-xl mt-2 bg-black text-white">
+                  <DropdownMenuItem className="rounded-xl mt-2 ">
                     <Link href={"/admin/dashboard"}>Admin Panel</Link>
                   </DropdownMenuItem>
                 ) : (
-                  <DropdownMenuItem className="rounded-xl mt-2 bg-black text-white">
+                  <DropdownMenuItem className="rounded-xl mt-2 ">
                     <Link href={"/mycourses"}>My Courses</Link>
                   </DropdownMenuItem>
                 )}

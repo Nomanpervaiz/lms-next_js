@@ -14,12 +14,12 @@ export default async function MyCourses() {
       const {application} = await getApplication({user : session?.user?._id})
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">My Courses</h1>
+      <h1 className="text-3xl font-bold mb-6 mt-4 text-center ">My Courses</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {application.map((course) => (
-          <Card key={course._id} className="overflow-hidden">
+          <Card key={course._id} className="overflow-hidden border-none shadow-md">
             <CardHeader className="bg-black text-white">
-              <CardTitle >{course.course.title}</CardTitle>
+              <CardTitle  >{course.course.title}</CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
               <div className="flex items-center space-x-4 mb-4">
@@ -51,7 +51,7 @@ export default async function MyCourses() {
               </div>
             </CardContent>
             <CardFooter className="justify-between">
-              <Badge variant={course.status === 'pending' ? 'secondary' : 'default'}>
+              <Badge className={"bg-gray-100 rounded-xl"} variant={course.status === 'pending' ? 'secondary' : 'default'}>
                 {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
               </Badge>
               <Badge className={"rounded-xl"} variant={course.addmission.status === 'open' ? 'success' : 'destructive'}>

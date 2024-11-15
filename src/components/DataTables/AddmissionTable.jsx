@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown, EyeIcon, Mail, MoreHorizontal, Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { updateAddmission } from "@/actions/addmissions";
+import Link from "next/link";
 
 export const columns = [
   {
@@ -117,24 +118,29 @@ export const columns = [
     header: "Update status",
     cell: ({ row }) => {
       const addmissionStatus = row.original
-      return(
-        <Select
-        required
-        defaultValue={row.getValue("status")}
-        onValueChange={async(val) => {
-                console.log("row val==>" ,val);
-          await updateAddmission(addmissionStatus?._id,val)
-        }}
-      >
-        <SelectTrigger className="rounded-xl w-20">
-          <SelectValue placeholder="select" />
-        </SelectTrigger>
-        <SelectContent className="bg-white">
-          <SelectItem  value="open">Open</SelectItem>
-          <SelectItem  value="close">Close</SelectItem>
-          <SelectItem  value="pending">Pending</SelectItem>
-        </SelectContent>
-      </Select>
+      return (
+        <div className="flex justify-between gap-1 px-2 items-center">
+          <Select
+            required
+            defaultValue={row.getValue("status")}
+            onValueChange={async (val) => {
+              console.log("row val==>", val);
+              await updateAddmission(addmissionStatus?._id, val)
+            }}
+          >
+            <SelectTrigger className="rounded-xl w-20">
+              <SelectValue placeholder="select" />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectItem value="open">Open</SelectItem>
+              <SelectItem value="close">Close</SelectItem>
+              <SelectItem value="pending">Pending</SelectItem>
+            </SelectContent>
+          </Select>
+          <Link href={`/admin/addmissions/${addmissionStatus._id}`}>
+            <Mail className="bg-secondary text-primary" />
+          </Link>
+        </div>
       )
     },
   },
@@ -215,9 +221,9 @@ export default function AddmissionTable({ data }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}

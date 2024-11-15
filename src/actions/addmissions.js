@@ -11,7 +11,6 @@ export async function getAddmission(status='') {
 
 //   This Function Add Data in Admission api from frontend
   export async function addAddmission(formData) {
-
     const obj = {
          startDate : formData.get("startDate") ,
          endDate : formData.get("endDate") ,
@@ -26,11 +25,9 @@ export async function getAddmission(status='') {
             body : JSON.stringify(obj)
         }
     )    
-
     if (addmission.ok) {
         revalidatePath("/admin/addmissions")        
     }
-    
   }
 
   export async function updateAddmission(id, status) {

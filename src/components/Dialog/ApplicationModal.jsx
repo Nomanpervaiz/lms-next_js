@@ -53,13 +53,13 @@ export function ApplicationModal({ addmission, session }) {
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog  open={open} onOpenChange={setOpen} >
         <DialogTrigger asChild>
-          <Button variant="outline">Apply</Button>
+          <Button variant="outline" className=" bg-white text-black hover:rounded-2xl transition-all duration-300">Apply</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] bg-white">
+        <DialogContent className="sm:max-w-[425px] bg-white ">
           <DialogHeader>
-            <DialogTitle className="font-bold">Apply</DialogTitle>
+            <DialogTitle className="font-bold ">Apply</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <ApplicationForm addmission={addmission} session={session} setOpen={setOpen} className={"mx-1"} />
@@ -71,11 +71,11 @@ export function ApplicationModal({ addmission, session }) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">Add Addmissions</Button>
+        <Button variant="outline">Add Application</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle className="font-bold">Add Addmissions</DrawerTitle>
+          <DrawerTitle className="font-bold">Add Application</DrawerTitle>
           <DrawerDescription></DrawerDescription>
         </DrawerHeader>
         <ApplicationForm className="px-4" />
@@ -176,7 +176,7 @@ console.log("addmission in modal==>>>",addmission);
         )}
       />
 
-      <Button type="submit">
+      <Button type="submit" className="rounded-2xl bg-black text-white">
         {form.formState.isSubmitting ? "Loading.." : "Submit"}
       </Button>
     </form>
