@@ -10,7 +10,6 @@ import { ApplicationModal } from "./Dialog/ApplicationModal";
 import Link from "next/link";
   
 function CourseSection({addmission,session}) {
-  console.log("addmission in coursesect" , addmission);
     
   return (
     <section className="h-dvh w-full py-10 bg-black">
@@ -23,6 +22,8 @@ function CourseSection({addmission,session}) {
 
 
     {addmission.map((admission) => {
+      console.log(admission._id);
+      
         return (
             <Card className="bg-white" key={admission._id}>
               <CardHeader>
@@ -36,7 +37,7 @@ function CourseSection({addmission,session}) {
                 {session ? (
                   <ApplicationModal
                     session={session}
-                    admission={admission}
+                    addmission={admission}
                   />
                 ) : (
                   <Link href={"/signin"}>Sign in to Apply</Link>

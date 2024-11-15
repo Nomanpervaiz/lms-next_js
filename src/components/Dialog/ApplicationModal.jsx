@@ -48,6 +48,8 @@ const formSchema = z.object({
 export function ApplicationModal({ addmission, session }) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = true;
+  console.log("addmission == " , addmission);
+  
 
   if (isDesktop) {
     return (
@@ -88,19 +90,26 @@ export function ApplicationModal({ addmission, session }) {
 }
 
 function ApplicationForm({ className, addmission, session ,setOpen}) {
-const toast = useToast()
-  const form = useForm({
-    resolver : zodResolver(formSchema),
-    
-  })
+const {toast} = useToast()
+const form = useForm({
+  resolver: zodResolver(formSchema),
+  defaultValues: {
+    CNIC: "4210196012222",
+    DOB: "2000-2-2",
+    address: "Gulshane Iqbaal Karachi",
+  },
+});
+
+
+console.log("addmission in modal==>>>",addmission);
   
   async function onSubmit(values) {
-    console.log(values);
+    console.log("value in application modal==",values);
     const obj = {
       course: addmission.course._id,
       batch: addmission.batch._id,
       user: session.user._id,
-      admission: addmission._id,
+      addmission: addmission._id,
       info: {
         ...values,
       },

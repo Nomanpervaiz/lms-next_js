@@ -4,9 +4,9 @@ import { revalidatePath } from "next/cache";
 
 // This funtion returns admission api data
 export async function getAddmission(status='') {
-    let admissions =  await fetch(`${process.env.BASE_URL}api/addmissions?status=${status}`,{cache: "no-cache",});
-    admissions = await admissions?.json();
-    return admissions;
+    let addmission =  await fetch(`${process.env.BASE_URL}api/addmissions?status=${status}`,{cache: "no-cache",});
+    addmission = await addmission?.json();
+    return addmission;
   }
 
 //   This Function Add Data in Admission api from frontend
