@@ -8,7 +8,14 @@ export async function getAddmission(status='') {
     addmission = await addmission?.json();
     return addmission;
   }
-
+  
+  // This funtion return single person addmision data
+  export async function getSingleAddmissionData(id) {
+      let singleUserAddmissions =  await fetch(`${process.env.BASE_URL}api/addmissions/${id}`,{cache: "no-cache",});
+      singleUserAddmissions = await singleUserAddmissions?.json();
+      return singleUserAddmissions;
+    }
+ 
 //   This Function Add Data in Admission api from frontend
   export async function addAddmission(formData) {
     const obj = {
