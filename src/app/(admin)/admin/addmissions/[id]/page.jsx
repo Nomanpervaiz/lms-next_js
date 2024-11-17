@@ -1,20 +1,26 @@
+
 import { getSingleAddmissionData } from "@/actions/addmissions";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   BookOpenIcon,
+  Calendar1Icon,
   CalendarIcon,
   ClockIcon,
+  UserIcon,
   Users2Icon,
 } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ApplicantsCart from "@/components/ApplicantsCart";
 
 async function AddmissionDetail({ params }) {
   const id = (await params).id;
@@ -88,16 +94,11 @@ async function AddmissionDetail({ params }) {
           <CardTitle>Applications</CardTitle>
         </CardHeader>
         <CardContent>
-          {addmission.applications.length > 0 ? (
-            <ul>
-              {addmission.application.map((application, index) => {
-                console.log("applications hai ==> ",application);
-                
-                return (
-                  <li key={index}>{/* Display application details here */}</li>
-                );
-              })}
-            </ul>
+          {addmission.application.length > 0 ? (
+            <>
+              <h2 className="text-2xl font-bold mb-4">Applications</h2>
+              <ApplicantsCart addmission={addmission} />
+            </>
           ) : (
             <p>No applications received yet.</p>
           )}

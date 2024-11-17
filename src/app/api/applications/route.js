@@ -64,3 +64,20 @@ export async function GET(request) {
     application,
   });
 }
+
+
+export async function PUT(request) {
+  await connectDB();
+  const obj = await request.json();
+  
+  const { id, status } = obj;
+  const updated = await ApplicationModel.findOneAndUpdate(
+    { _id: id},
+    { status: status }
+  ).exec();
+  return (Response.json({
+    error : false ,
+    msg : "Application Updated Successfully." , 
+    application : updated
+  }))
+}

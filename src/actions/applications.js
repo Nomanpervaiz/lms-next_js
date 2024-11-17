@@ -27,3 +27,24 @@ export async function addApplication(obj) {
   });
   return await application.json();
 }
+
+
+
+export async function updateApplication(id, status,addmissionId) {
+  const updateStatusOfApplication = await fetch(`${process.env.BASE_URL}api/applications`, {
+    method: "PUT",
+    body: JSON.stringify(
+      {
+        id:id,
+        status:status
+      }
+    ),
+  });
+
+  const responseJson = await updateStatusOfApplication.json();
+  console.log("Update response:", responseJson); 
+
+  if (updateStatusOfApplication.ok) {
+    revalidatePath(`/admin/applications/${addmissionId}`);
+  }
+}
