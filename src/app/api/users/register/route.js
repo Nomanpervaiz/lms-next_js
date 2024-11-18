@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
 export async function GET(request) {
-  return new Response(JSON?.stringify("Get response login Successfully"), {
+  return new Response(JSON?.stringify("Get response Register Successfully"), {
     status: 200,
   });
 }
@@ -13,7 +13,6 @@ export async function POST(request) {
   try {
     // Connecting to the database
     await connectDB();
-
     // Parsing JSON request data
     const obj = await request?.json();
     // Check if the user exists in the database
@@ -25,17 +24,16 @@ export async function POST(request) {
       );
     }
 
-
     // convert password to hash password
-    const hashPassword = await bcrypt.hash(obj.password,12)
+    const hashPassword = await bcrypt.hash(obj.password, 12)
 
- // Create new user object
- const newUser = await UserModel.create({
-  name : obj.name,
-  email: obj.email,
-  password : hashPassword,
-  provider : Credentials
-})
+    // Create new user object
+    const newUser = await UserModel.create({
+      name: obj.name,
+      email: obj.email,
+      password: hashPassword,
+      provider: "Credentials"
+    })
 
     // Generate JWT token
     const token = jwt?.sign(
@@ -49,11 +47,11 @@ export async function POST(request) {
       JSON?.stringify({
         error: false,
         msg: "User Register successfully",
-          user : {
-            id : newUser._id,
-            name : newUser.name,
-            email : newUser.email
-          },
+        user: {
+          id: newUser._id,
+          name: newUser.name,
+          email: newUser.email
+        },
         token,
       }),
       { status: 201 }

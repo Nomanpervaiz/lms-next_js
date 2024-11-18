@@ -1,6 +1,6 @@
 
 
-import {  auth } from "../../../../auth"
+import {  auth, signIn } from "../../../../auth"
 
 export default async function SignUp() {
 

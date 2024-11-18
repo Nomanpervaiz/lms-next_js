@@ -5,8 +5,8 @@ import Credentials from "next-auth/providers/credentials";
 import { UserModel } from "@/lib/Models/UserModel";
 
 const handleLogin = async (profile) => {
-  
   await connectDB();
+
   const user = await UserModel.findOne({ email: profile?.email });
   if (user) {
     return user;
@@ -24,18 +24,38 @@ const handleLogin = async (profile) => {
   }
 };
 
+
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google,
     Credentials({
       credentials: {
-        email: {},
-        password: {},
+        name: { label: "Name", type: "text", optional: true },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
+        await connectDB();
+        const { name, email, password } = credentials
         let user = null;
-        console.log("credentials", credentials);
-        let res = await fetch( `${process.env.BASE_URL}api/users/login`,
+        console.log("credentials in register == >", credentials);
+        if (name) {
+         
+          let res = await fetch(`${process.env.BASE_URL}api/users/register`,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                name,
+                email,
+                password,
+                provider : "credential"
+              }),
+            }
+          );
+        }
+
+        let res = await fetch(`${process.env.BASE_URL}api/users/login`,
           {
             method: "POST",
             body: JSON.stringify({
