@@ -1,6 +1,6 @@
 export default function Loading() {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen pb-20 flex justify-center items-center">
         <div role="status">
           <svg
             aria-hidden="true"
