@@ -1,0 +1,81 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "next.config.js",
+        "use": "@vercel/next"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      },
+      {
+        "src": "/auth/(.*)",
+        "dest": "/auth/$1"
+      },
+      {
+        "src": "/courses/(.*)",
+        "dest": "/courses/$1"
+      },
+      {
+        "src": "/dashboard",
+        "dest": "/dashboard"
+      },
+      {
+        "src": "/profile",
+        "dest": "/profile"
+      },
+      {
+        "src": "/",
+        "dest": "/index"
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/login",
+        "destination": "/auth/login"
+      },
+      {
+        "source": "/register",
+        "destination": "/auth/register"
+      },
+      {
+        "source": "/my-courses",
+        "destination": "/dashboard/my-courses"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/old-dashboard",
+        "destination": "/dashboard",
+        "permanent": true
+      },
+      {
+        "source": "/signup",
+        "destination": "/register",
+        "permanent": true
+      }
+    ],
+    "headers": [
+      {
+        "source": "/api/(.*)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, POST, PUT, DELETE"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "Content-Type, Authorization"
+          }
+        ]
+      }
+    ]
+  }
+  

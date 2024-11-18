@@ -51,8 +51,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 password,
                 provider : "credential"
               }),
-            }
-          );
+            });
+            res = await res.json();
+            user = await res.user;
+            return user;
         }
 
         let res = await fetch(`${process.env.BASE_URL}api/users/login`,
@@ -65,7 +67,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
         );
         res = await res.json();
-        console.log("response ==> ", res.user);
         user = await res.user;
         return user;
       },
