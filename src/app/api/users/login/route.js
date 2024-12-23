@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/dbConnect";
 import { UserModel } from "@/lib/Models/UserModel";
-import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export async function GET(request) {
   return new Response(JSON?.stringify("Get response login Successfully"), {
@@ -39,7 +39,7 @@ export async function POST(request) {
     // Generate JWT token
     const token = jwt?.sign(
       { id: user?._id, role: user?.role },
-      process.env.JWT_KEY, // Ensure JWT_KEY is set in .env
+      process.env.JWT_KEY // Ensure JWT_KEY is set in .env
     );
 
     // Respond with success message, user info, and token
@@ -52,12 +52,10 @@ export async function POST(request) {
       }),
       { status: 200 }
     );
-
   } catch (error) {
     console.error("Login Error:", error);
-    return new Response(
-      JSON?.stringify({ error: true, msg: "Server Error" }),
-      { status: 500 }
-    );
+    return new Response(JSON?.stringify({ error: true, msg: "Server Error" }), {
+      status: 500,
+    });
   }
 }

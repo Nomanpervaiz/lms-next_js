@@ -8,6 +8,7 @@ module.exports = {
   ],
   theme: {
   	extend: {
+		
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -59,6 +60,11 @@ module.exports = {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			}
+			,
+			navy: {
+				600: '#1e3a8a',
+				700: '#1e3a8a',
+			  },
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -69,3 +75,5 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animate")],
 };
+
+

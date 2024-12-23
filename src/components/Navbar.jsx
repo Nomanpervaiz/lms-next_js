@@ -9,16 +9,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
+import logo from "@/app/assets/logo.png";
+import { LogInIcon } from "lucide-react";
 
 async function Navbar() {
   let session = await auth();
-    
-
   return (
-    <nav className="bg-white  py-6 shadow-md">
+    <nav className="bg-white  py-4 shadow-md">
       <div className="container flex  justify-between mx-auto items-center">
-        <h1 className="bg-black font-bold text-white rounded-xl px-4 py-2 ">
-          LMS
+        <h1 className="font-bold text-white rounded-xl px-4 py-2 ">
+          
+        <Image 
+        src={logo}
+        alt="logo"
+        className="w-10 md:w-12"
+        priority
+        />
         </h1>
         {session ? (
           <div className="flex justify-center items-center">
@@ -64,9 +71,9 @@ async function Navbar() {
         ) : (
           <Link
             href={"/signin"}
-            className="border bg-black text-white py-2 px-4 rounded-xl"
+            className="flex text-black items-center mr-4 rounded-xl"
           >
-            Login
+            Login <LogInIcon size={20} className="mx-1"/>
           </Link>
         )}
       </div>
